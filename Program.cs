@@ -8,11 +8,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddControllers();
 
-// allows passing datetimes without time zone data 
+
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
-// allows our api endpoints to access the database through Entity Framework Core
 builder.Services.AddNpgsql<CookistryDbContext>(builder.Configuration["CookistryDbConnectionString"]);
 
 
@@ -24,6 +24,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.MapControllers();
 
 app.UseHttpsRedirection();
 
