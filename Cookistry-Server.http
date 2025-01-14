@@ -1,0 +1,6 @@
+@Cookistry_Server_HostAddress = http://localhost:5122
+
+GET {{Cookistry_Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
