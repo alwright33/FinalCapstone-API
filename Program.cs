@@ -29,3 +29,6 @@ app.MapControllers();
 app.UseHttpsRedirection();
 
 app.Run();
+
+
+//Start building necessary endpoints then move on to authorization. 
