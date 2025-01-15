@@ -235,21 +235,21 @@ namespace Cookistry_Server.Migrations
                 columns: new[] { "RecipeId", "AuthorId", "CookTime", "CreatedDate", "Description", "Difficulty", "Name", "PrepTime" },
                 values: new object[,]
                 {
-                    { 1, 1, 5, new DateTime(2025, 1, 14, 14, 45, 31, 687, DateTimeKind.Local).AddTicks(1077), "Quick and easy scrambled eggs for breakfast.", "Beginner", "Simple Scrambled Eggs", 2 },
-                    { 2, 2, 10, new DateTime(2025, 1, 14, 14, 45, 31, 687, DateTimeKind.Local).AddTicks(1080), "A golden, cheesy sandwich.", "Beginner", "Classic Grilled Cheese", 5 },
-                    { 3, 3, 20, new DateTime(2025, 1, 14, 14, 45, 31, 687, DateTimeKind.Local).AddTicks(1083), "A simple pasta dish with a rich tomato sauce.", "Beginner", "Pasta with Tomato Sauce", 10 },
-                    { 4, 4, 30, new DateTime(2025, 1, 14, 14, 45, 31, 687, DateTimeKind.Local).AddTicks(1085), "Crispy potatoes baked to perfection.", "Beginner", "Oven-Baked Potatoes", 10 },
-                    { 5, 5, 5, new DateTime(2025, 1, 14, 14, 45, 31, 687, DateTimeKind.Local).AddTicks(1087), "A refreshing mix of seasonal fruits.", "Beginner", "Fruit Salad", 10 },
-                    { 6, 6, 20, new DateTime(2025, 1, 14, 14, 45, 31, 687, DateTimeKind.Local).AddTicks(1089), "A flavorful stir-fry with tender chicken and crisp vegetables.", "Intermediate", "Chicken Stir-Fry", 15 },
-                    { 7, 7, 40, new DateTime(2025, 1, 14, 14, 45, 31, 687, DateTimeKind.Local).AddTicks(1091), "A creamy and delicious beef stroganoff.", "Intermediate", "Beef Stroganoff", 20 },
-                    { 8, 8, 25, new DateTime(2025, 1, 14, 14, 45, 31, 687, DateTimeKind.Local).AddTicks(1093), "A customizable homemade pizza with your favorite toppings.", "Intermediate", "Homemade Pizza", 20 },
-                    { 9, 9, 15, new DateTime(2025, 1, 14, 14, 45, 31, 687, DateTimeKind.Local).AddTicks(1095), "Delicious shrimp tacos with a zesty lime crema.", "Intermediate", "Shrimp Tacos", 10 },
-                    { 10, 10, 45, new DateTime(2025, 1, 14, 14, 45, 31, 687, DateTimeKind.Local).AddTicks(1097), "Bell peppers stuffed with a savory mixture of rice, meat, and vegetables.", "Intermediate", "Stuffed Bell Peppers", 25 },
-                    { 11, 1, 90, new DateTime(2025, 1, 14, 14, 45, 31, 687, DateTimeKind.Local).AddTicks(1099), "A luxurious dish featuring beef tenderloin wrapped in puff pastry.", "Advanced", "Beef Wellington", 60 },
-                    { 12, 2, 60, new DateTime(2025, 1, 14, 14, 45, 31, 687, DateTimeKind.Local).AddTicks(1101), "A beautifully layered vegetable dish inspired by French cuisine.", "Advanced", "Ratatouille", 30 },
-                    { 13, 3, 20, new DateTime(2025, 1, 14, 14, 45, 31, 687, DateTimeKind.Local).AddTicks(1103), "Flaky, buttery croissants made from scratch.", "Advanced", "Croissants", 240 },
-                    { 14, 4, 120, new DateTime(2025, 1, 14, 14, 45, 31, 687, DateTimeKind.Local).AddTicks(1105), "A classic French dish featuring duck with a sweet orange glaze.", "Advanced", "Duck à l'Orange", 40 },
-                    { 15, 5, 50, new DateTime(2025, 1, 14, 14, 45, 31, 687, DateTimeKind.Local).AddTicks(1107), "A rich and creamy lobster soup.", "Advanced", "Lobster Bisque", 30 }
+                    { 1, 1, 5, new DateTime(2025, 1, 15, 11, 23, 22, 248, DateTimeKind.Local).AddTicks(8076), "Quick and easy scrambled eggs for breakfast.", "Beginner", "Simple Scrambled Eggs", 2 },
+                    { 2, 2, 10, new DateTime(2025, 1, 15, 11, 23, 22, 248, DateTimeKind.Local).AddTicks(8083), "A golden, cheesy sandwich.", "Beginner", "Classic Grilled Cheese", 5 },
+                    { 3, 3, 20, new DateTime(2025, 1, 15, 11, 23, 22, 248, DateTimeKind.Local).AddTicks(8086), "A simple pasta dish with a rich tomato sauce.", "Beginner", "Pasta with Tomato Sauce", 10 },
+                    { 4, 4, 30, new DateTime(2025, 1, 15, 11, 23, 22, 248, DateTimeKind.Local).AddTicks(8088), "Crispy potatoes baked to perfection.", "Beginner", "Oven-Baked Potatoes", 10 },
+                    { 5, 5, 5, new DateTime(2025, 1, 15, 11, 23, 22, 248, DateTimeKind.Local).AddTicks(8090), "A refreshing mix of seasonal fruits.", "Beginner", "Fruit Salad", 10 },
+                    { 6, 6, 20, new DateTime(2025, 1, 15, 11, 23, 22, 248, DateTimeKind.Local).AddTicks(8092), "A flavorful stir-fry with tender chicken and crisp vegetables.", "Intermediate", "Chicken Stir-Fry", 15 },
+                    { 7, 7, 40, new DateTime(2025, 1, 15, 11, 23, 22, 248, DateTimeKind.Local).AddTicks(8094), "A creamy and delicious beef stroganoff.", "Intermediate", "Beef Stroganoff", 20 },
+                    { 8, 8, 25, new DateTime(2025, 1, 15, 11, 23, 22, 248, DateTimeKind.Local).AddTicks(8096), "A customizable homemade pizza with your favorite toppings.", "Intermediate", "Homemade Pizza", 20 },
+                    { 9, 9, 15, new DateTime(2025, 1, 15, 11, 23, 22, 248, DateTimeKind.Local).AddTicks(8102), "Delicious shrimp tacos with a zesty lime crema.", "Intermediate", "Shrimp Tacos", 10 },
+                    { 10, 10, 45, new DateTime(2025, 1, 15, 11, 23, 22, 248, DateTimeKind.Local).AddTicks(8104), "Bell peppers stuffed with a savory mixture of rice, meat, and vegetables.", "Intermediate", "Stuffed Bell Peppers", 25 },
+                    { 11, 1, 90, new DateTime(2025, 1, 15, 11, 23, 22, 248, DateTimeKind.Local).AddTicks(8106), "A luxurious dish featuring beef tenderloin wrapped in puff pastry.", "Advanced", "Beef Wellington", 60 },
+                    { 12, 2, 60, new DateTime(2025, 1, 15, 11, 23, 22, 248, DateTimeKind.Local).AddTicks(8108), "A beautifully layered vegetable dish inspired by French cuisine.", "Advanced", "Ratatouille", 30 },
+                    { 13, 3, 20, new DateTime(2025, 1, 15, 11, 23, 22, 248, DateTimeKind.Local).AddTicks(8110), "Flaky, buttery croissants made from scratch.", "Advanced", "Croissants", 240 },
+                    { 14, 4, 120, new DateTime(2025, 1, 15, 11, 23, 22, 248, DateTimeKind.Local).AddTicks(8112), "A classic French dish featuring duck with a sweet orange glaze.", "Advanced", "Duck à l'Orange", 40 },
+                    { 15, 5, 50, new DateTime(2025, 1, 15, 11, 23, 22, 248, DateTimeKind.Local).AddTicks(8114), "A rich and creamy lobster soup.", "Advanced", "Lobster Bisque", 30 }
                 });
 
             migrationBuilder.InsertData(
@@ -257,16 +257,16 @@ namespace Cookistry_Server.Migrations
                 columns: new[] { "UserId", "AccountCreated", "Email", "FirstName", "LastName", "PasswordHash", "Username" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2024, 10, 6, 14, 45, 31, 687, DateTimeKind.Local).AddTicks(789), "awright@code.com", "Austin", "Wright", "austin1", "alwright33" },
-                    { 2, new DateTime(2024, 10, 16, 14, 45, 31, 687, DateTimeKind.Local).AddTicks(834), "bakersue@example.com", "Sue", "Smith", "hashedpassword2", "BakerSue" },
-                    { 3, new DateTime(2024, 10, 26, 14, 45, 31, 687, DateTimeKind.Local).AddTicks(837), "grillmaster@example.com", "James", "Brown", "hashedpassword3", "GrillMaster" },
-                    { 4, new DateTime(2024, 11, 5, 14, 45, 31, 687, DateTimeKind.Local).AddTicks(839), "veggiequeen@example.com", "Emily", "Clark", "hashedpassword4", "VeggieQueen" },
-                    { 5, new DateTime(2024, 11, 15, 14, 45, 31, 687, DateTimeKind.Local).AddTicks(842), "quickcook@example.com", "Oliver", "Martinez", "hashedpassword5", "QuickCook" },
-                    { 6, new DateTime(2024, 11, 25, 14, 45, 31, 687, DateTimeKind.Local).AddTicks(844), "dessertlover@example.com", "Sophia", "Johnson", "hashedpassword6", "DessertLover" },
-                    { 7, new DateTime(2024, 12, 5, 14, 45, 31, 687, DateTimeKind.Local).AddTicks(846), "homechef@example.com", "William", "Garcia", "hashedpassword7", "HomeChef" },
-                    { 8, new DateTime(2024, 12, 15, 14, 45, 31, 687, DateTimeKind.Local).AddTicks(848), "healthyeats@example.com", "Ava", "Hernandez", "hashedpassword8", "HealthyEats" },
-                    { 9, new DateTime(2024, 12, 25, 14, 45, 31, 687, DateTimeKind.Local).AddTicks(851), "spicyfan@example.com", "Ethan", "Lopez", "hashedpassword9", "SpicyFan" },
-                    { 10, new DateTime(2025, 1, 4, 14, 45, 31, 687, DateTimeKind.Local).AddTicks(853), "foodexplorer@example.com", "Isabella", "Gonzalez", "hashedpassword10", "FoodExplorer" }
+                    { 1, new DateTime(2024, 10, 7, 11, 23, 22, 248, DateTimeKind.Local).AddTicks(7607), "awright@code.com", "Austin", "Wright", "DtT3pAmyMGn7Egv1u/2nbsZg3fKB4gCC+ukM0nRie5Q=", "alwright33" },
+                    { 2, new DateTime(2024, 10, 17, 11, 23, 22, 248, DateTimeKind.Local).AddTicks(7668), "bakersue@example.com", "Sue", "Smith", "uOcDVLptmT9p1wbHDPiiCwv+LCViKPJ9+Z+Kfx6jvik=", "BakerSue" },
+                    { 3, new DateTime(2024, 10, 27, 11, 23, 22, 248, DateTimeKind.Local).AddTicks(7677), "grillmaster@example.com", "James", "Brown", "72iPsaCHr4uafyLrFB/Z6HBxYJVOjIVaRavYSONVFuU=", "GrillMaster" },
+                    { 4, new DateTime(2024, 11, 6, 11, 23, 22, 248, DateTimeKind.Local).AddTicks(7685), "veggiequeen@example.com", "Emily", "Clark", "KGikZ6W4f1WBalePRo6tlJrAQMzntaBQ7yEoAXhxkSw=", "VeggieQueen" },
+                    { 5, new DateTime(2024, 11, 16, 11, 23, 22, 248, DateTimeKind.Local).AddTicks(7693), "quickcook@example.com", "Oliver", "Martinez", "QWeGev5EHzBSj1WtPzFm0DS5WiBlaLZ2d3AViEV7i7c=", "QuickCook" },
+                    { 6, new DateTime(2024, 11, 26, 11, 23, 22, 248, DateTimeKind.Local).AddTicks(7702), "dessertlover@example.com", "Sophia", "Johnson", "wfcAOn8hcKoA27v0/upQNo4p/Zm49n83ORc1jqS4Gdw=", "DessertLover" },
+                    { 7, new DateTime(2024, 12, 6, 11, 23, 22, 248, DateTimeKind.Local).AddTicks(7710), "homechef@example.com", "William", "Garcia", "cY3PUg7zYmW/61Eq7e2ouhbK3zHke7ILOohE9mDIp5w=", "HomeChef" },
+                    { 8, new DateTime(2024, 12, 16, 11, 23, 22, 248, DateTimeKind.Local).AddTicks(7717), "healthyeats@example.com", "Ava", "Hernandez", "jBo1GEUrrv1hh3Iv+oMf9kpMxJE/vmjXYoCfbhC5788=", "HealthyEats" },
+                    { 9, new DateTime(2024, 12, 26, 11, 23, 22, 248, DateTimeKind.Local).AddTicks(7725), "spicyfan@example.com", "Ethan", "Lopez", "1G9QiTMpLCmRc5XH8v8KUvtZegMdZBgaCbFYJSlO0/o=", "SpicyFan" },
+                    { 10, new DateTime(2025, 1, 5, 11, 23, 22, 248, DateTimeKind.Local).AddTicks(7732), "foodexplorer@example.com", "Isabella", "Gonzalez", "ipDWxJMgygUVBvM36eigRWbP+QiwaCKlrOzA96rrRC8=", "FoodExplorer" }
                 });
 
             migrationBuilder.InsertData(
