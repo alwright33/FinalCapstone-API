@@ -1,5 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Cookistry.Models;
+using System.Security.Cryptography;
+using System.Text;
+
 
 public class CookistryDbContext : DbContext
 {
@@ -46,7 +49,7 @@ public class CookistryDbContext : DbContext
             FirstName = "Austin",
             LastName = "Wright",
             Email = "awright@code.com",
-            PasswordHash = "austin1",
+            PasswordHash = HashPassword("austin1"),
             AccountCreated = DateTime.Now.AddDays(-100)
         },
         new User
@@ -140,6 +143,8 @@ public class CookistryDbContext : DbContext
             AccountCreated = DateTime.Now.AddDays(-10)
         }
         });
+
+
 
         //Ingredients
         modelBuilder.Entity<Ingredient>().HasData(
@@ -684,6 +689,11 @@ public class CookistryDbContext : DbContext
 );
 
 
+    }
+    private static string HashPassword(string password)
+    {
+        using var sha256 = SHA256.Create();
+        return Convert.ToBase64String(sha256.ComputeHash(Encoding.UTF8.GetBytes(password)));
     }
 }
 

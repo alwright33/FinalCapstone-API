@@ -1,7 +1,6 @@
 namespace Cookistry.Models.DTOs;
 
-public class IngredientDTO
+public class CreateIngredientDTO
 {
-    public int IngredientId { get; set; }
     public string Name { get; set; }
 }
