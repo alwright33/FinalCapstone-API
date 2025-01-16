@@ -34,7 +34,13 @@ namespace Cookistry.Controllers
         {
             var recipeIngredients = await _context.RecipeIngredients
                 .Where(ri => ri.RecipeId == recipeId)
-                .Select(ri => MapToRecipeIngredientDTO(ri))
+                .Select(ri => new RecipeIngredientDTO
+                {
+                    IngredientId = ri.IngredientId,
+                    Name = ri.Ingredient.Name, // Join with the Ingredient table
+                    Quantity = ri.Quantity,
+                    Unit = ri.Unit
+                })
                 .ToListAsync();
 
             if (!recipeIngredients.Any())
@@ -44,6 +50,7 @@ namespace Cookistry.Controllers
 
             return Ok(recipeIngredients);
         }
+
 
         // POST: api/RecipeIngredients/recipe/{recipeId}
         [HttpPost("recipe/{recipeId}")]

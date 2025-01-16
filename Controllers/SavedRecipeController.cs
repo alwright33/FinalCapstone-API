@@ -31,13 +31,12 @@ namespace Cookistry.Controllers
         {
             var savedRecipes = await _context.SavedRecipes
                 .Where(sr => sr.UserId == userId)
-                .Select(sr => MapToSavedRecipeDTO(sr))
+                .Select(sr => new SavedRecipeDTO
+                {
+                    RecipeId = sr.RecipeId,
+                    // Add additional fields if required
+                })
                 .ToListAsync();
-
-            if (!savedRecipes.Any())
-            {
-                return NotFound(new { message = "No saved recipes found for the user." });
-            }
 
             return Ok(savedRecipes);
         }
