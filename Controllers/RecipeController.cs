@@ -56,38 +56,91 @@ namespace Cookistry.Controllers
             return Ok(MapToRecipeDTO(recipe));
         }
 
-        // POST: api/Recipes
         [HttpPost]
-        public async Task<ActionResult<RecipeDTO>> CreateRecipe([FromBody] CreateRecipeDTO createRecipeDTO)
+        public async Task<IActionResult> CreateRecipe([FromBody] CreateRecipeDTO recipeDto, [FromHeader(Name = "Authorization")] string token)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var recipe = new Recipe
-            {
-                Name = createRecipeDTO.Name,
-                Description = createRecipeDTO.Description,
-                CookTime = createRecipeDTO.CookTime,
-                PrepTime = createRecipeDTO.PrepTime,
-                Difficulty = createRecipeDTO.Difficulty,
-                AuthorId = createRecipeDTO.AuthorId,
-                CreatedDate = DateTime.UtcNow
-            };
-
-            _context.Recipes.Add(recipe);
             try
             {
+                if (string.IsNullOrEmpty(token))
+                {
+                    Console.WriteLine("No token provided.");
+                    return Unauthorized(new { message = "Missing token." });
+                }
+
+                token = token.Replace("Bearer ", "").Trim();
+                Console.WriteLine($"Processed Token: {token}");
+
+                var user = await _context.Users.FirstOrDefaultAsync(u => u.Token == token);
+                if (user == null)
+                {
+                    Console.WriteLine("Invalid token or user not found.");
+                    return Unauthorized(new { message = "Invalid or missing token." });
+                }
+
+                Console.WriteLine($"User authenticated: {user.UserId}");
+
+                if (!ModelState.IsValid)
+                {
+                    Console.WriteLine("Model validation failed.");
+                    foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+                    {
+                        Console.WriteLine($"Validation Error: {error.ErrorMessage}");
+                    }
+                    return BadRequest(ModelState);
+                }
+
+                using var transaction = await _context.Database.BeginTransactionAsync();
+
+                var recipe = new Recipe
+                {
+                    Name = recipeDto.Name,
+                    Description = recipeDto.Description,
+                    CookTime = recipeDto.CookTime,
+                    PrepTime = recipeDto.PrepTime,
+                    Difficulty = recipeDto.Difficulty,
+                    AuthorId = user.UserId,
+                    CreatedDate = DateTime.UtcNow
+                };
+
+                _context.Recipes.Add(recipe);
                 await _context.SaveChangesAsync();
+
+                Console.WriteLine($"Recipe created with ID: {recipe.RecipeId}");
+
+                foreach (var ingredient in recipeDto.Ingredients)
+                {
+                    _context.RecipeIngredients.Add(new RecipeIngredient
+                    {
+                        RecipeId = recipe.RecipeId,
+                        IngredientId = ingredient.IngredientId,
+                        Quantity = ingredient.Quantity,
+                        Unit = ingredient.Unit,
+                        PrepDetails = ingredient.PrepDetails
+                    });
+                }
+
+                foreach (var step in recipeDto.Steps)
+                {
+                    _context.RecipeSteps.Add(new RecipeStep
+                    {
+                        RecipeId = recipe.RecipeId,
+                        StepNumber = step.StepNumber,
+                        StepInstruction = step.StepInstruction
+                    });
+                }
+
+                await _context.SaveChangesAsync();
+                await transaction.CommitAsync();
+
+                return CreatedAtAction(nameof(GetRecipe), new { id = recipe.RecipeId }, recipe);
             }
-            catch (DbUpdateException ex)
+            catch (Exception ex)
             {
+                Console.WriteLine($"Error: {ex.Message}");
                 return StatusCode(500, new { message = "An error occurred while creating the recipe.", details = ex.Message });
             }
-
-            return CreatedAtAction(nameof(GetRecipe), new { id = recipe.RecipeId }, MapToRecipeDTO(recipe));
         }
+
 
         // PUT: api/Recipes/{id}
         [HttpPut("{id}")]

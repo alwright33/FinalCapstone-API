@@ -22,7 +22,18 @@ public class CookistryDbContext : DbContext
     {
 
         modelBuilder.Entity<SavedRecipe>()
-            .HasKey(sr => new { sr.UserId, sr.RecipeId });
+    .HasKey(sr => new { sr.UserId, sr.RecipeId });
+
+        modelBuilder.Entity<SavedRecipe>()
+            .HasOne(sr => sr.Recipe)
+            .WithMany()
+            .HasForeignKey(sr => sr.RecipeId);
+
+        modelBuilder.Entity<SavedRecipe>()
+            .HasOne(sr => sr.User)
+            .WithMany()
+            .HasForeignKey(sr => sr.UserId);
+
 
         modelBuilder.Entity<RecipeIngredient>()
             .HasKey(ri => new { ri.RecipeId, ri.IngredientId });
@@ -37,6 +48,15 @@ public class CookistryDbContext : DbContext
             .WithMany()
             .HasForeignKey(ri => ri.IngredientId);
 
+        modelBuilder.Entity<RecipeStep>()
+       .HasKey(rs => rs.StepId);
+
+        modelBuilder.Entity<RecipeStep>()
+            .HasOne(rs => rs.Recipe)
+            .WithMany(r => r.RecipeSteps)
+            .HasForeignKey(rs => rs.RecipeId);
+
+        modelBuilder.Entity<User>().Property(u => u.Token).HasMaxLength(256).IsRequired(false);
 
         //Users
         modelBuilder.Entity<User>().HasData(new User[]

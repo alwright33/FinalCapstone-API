@@ -15,4 +15,6 @@ public class RecipeStep
 
     [Required]
     public string StepInstruction { get; set; }
+
+    public Recipe Recipe { get; set; }
 }

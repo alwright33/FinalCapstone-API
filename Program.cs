@@ -1,15 +1,8 @@
-using Cookistry.Models;
-using Microsoft.EntityFrameworkCore;
-using System.Text.Json.Serialization;
-using Microsoft.AspNetCore.Http.Json;
-
-
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
-
 
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
@@ -27,8 +20,7 @@ builder.Services.AddCors(options =>
         });
 });
 
-
-
+builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
@@ -40,9 +32,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseAuthorization();
 app.MapControllers();
 app.UseHttpsRedirection();
 app.Run();
 
-
-//Start building necessary endpoints then move on to authorization. 
