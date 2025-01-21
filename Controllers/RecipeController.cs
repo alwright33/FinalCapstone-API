@@ -31,18 +31,25 @@ namespace Cookistry.Controllers
             };
         }
 
-        // GET: api/Recipes
         [HttpGet]
         public async Task<ActionResult<IEnumerable<RecipeDTO>>> GetRecipes()
         {
             var recipes = await _context.Recipes
-                .Select(recipe => MapToRecipeDTO(recipe))
+                .Select(recipe => new RecipeDTO
+                {
+                    RecipeId = recipe.RecipeId,
+                    Name = recipe.Name,
+                    Description = recipe.Description,
+                    CookTime = recipe.CookTime,
+                    PrepTime = recipe.PrepTime,
+                    Difficulty = recipe.Difficulty,
+                    AuthorId = recipe.AuthorId
+                })
                 .ToListAsync();
 
             return Ok(recipes);
         }
 
-        // GET: api/Recipes/{id}
         [HttpGet("{id}")]
         public async Task<ActionResult<RecipeDTO>> GetRecipe(int id)
         {
@@ -65,16 +72,20 @@ namespace Cookistry.Controllers
                 CookTime = recipe.CookTime,
                 PrepTime = recipe.PrepTime,
                 Difficulty = recipe.Difficulty,
-                RecipeIngredients = recipe.RecipeIngredients.Select(ri => new RecipeIngredientDTO
+                AuthorId = recipe.AuthorId,
+                Ingredients = recipe.RecipeIngredients.Select(ri => new RecipeIngredientDTO
                 {
+                    RecipeId = ri.RecipeId,
                     IngredientId = ri.IngredientId,
                     Name = ri.Ingredient.Name,
                     Quantity = ri.Quantity,
                     Unit = ri.Unit,
                     PrepDetails = ri.PrepDetails
                 }).ToList(),
-                RecipeSteps = recipe.RecipeSteps.Select(rs => new RecipeStepDTO
+                Steps = recipe.RecipeSteps.Select(rs => new RecipeStepDTO
                 {
+                    StepId = rs.StepId,
+                    RecipeId = rs.RecipeId,
                     StepNumber = rs.StepNumber,
                     StepInstruction = rs.StepInstruction
                 }).ToList()
@@ -83,20 +94,17 @@ namespace Cookistry.Controllers
             return Ok(recipeDTO);
         }
 
-        // POST: api/Recipes/
         [HttpPost]
         public async Task<IActionResult> CreateRecipe([FromBody] CreateRecipeDTO recipeDto, [FromQuery] int userId)
         {
             try
             {
-                // Validate user
                 var user = await _context.Users.FindAsync(userId);
                 if (user == null)
                 {
                     return Unauthorized(new { message = "Invalid user." });
                 }
 
-                // Validate model state
                 if (!ModelState.IsValid)
                 {
                     return BadRequest(new
@@ -106,7 +114,6 @@ namespace Cookistry.Controllers
                     });
                 }
 
-                // Map recipe data
                 var recipe = new Recipe
                 {
                     Name = recipeDto.Name,
@@ -130,26 +137,18 @@ namespace Cookistry.Controllers
                     }).ToList()
                 };
 
-                // Save to the database
                 _context.Recipes.Add(recipe);
                 await _context.SaveChangesAsync();
 
-                // Return the created recipe
                 return CreatedAtAction(nameof(GetRecipe), new { id = recipe.RecipeId }, recipe);
             }
             catch (Exception ex)
             {
-                // Log the error and return JSON response
                 Console.WriteLine($"Error Creating Recipe: {ex.Message}");
                 return StatusCode(500, new { message = "An error occurred while creating the recipe.", details = ex.Message });
             }
         }
 
-
-
-
-
-        // PUT: api/Recipes/{id}
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateRecipe(int id, [FromBody] RecipeDTO recipeDTO)
         {
@@ -158,7 +157,11 @@ namespace Cookistry.Controllers
                 return BadRequest(new { message = "Recipe ID mismatch." });
             }
 
-            var recipe = await _context.Recipes.FindAsync(id);
+            var recipe = await _context.Recipes
+                .Include(r => r.RecipeIngredients)
+                .Include(r => r.RecipeSteps)
+                .FirstOrDefaultAsync(r => r.RecipeId == id);
+
             if (recipe == null)
             {
                 return NotFound(new { message = "Recipe not found." });
@@ -170,26 +173,39 @@ namespace Cookistry.Controllers
             recipe.PrepTime = recipeDTO.PrepTime;
             recipe.Difficulty = recipeDTO.Difficulty;
 
+            _context.RecipeIngredients.RemoveRange(recipe.RecipeIngredients);
+            recipe.RecipeIngredients = recipeDTO.Ingredients.Select(i => new RecipeIngredient
+            {
+                RecipeId = recipeDTO.RecipeId,
+                IngredientId = i.IngredientId,
+                Quantity = i.Quantity,
+                Unit = i.Unit,
+                PrepDetails = i.PrepDetails
+            }).ToList();
+
+            _context.RecipeSteps.RemoveRange(recipe.RecipeSteps);
+            recipe.RecipeSteps = recipeDTO.Steps.Select(s => new RecipeStep
+            {
+                StepId = s.StepId,
+                RecipeId = recipeDTO.RecipeId,
+                StepNumber = s.StepNumber,
+                StepInstruction = s.StepInstruction
+            }).ToList();
+
             _context.Entry(recipe).State = EntityState.Modified;
 
             try
             {
                 await _context.SaveChangesAsync();
             }
-            catch (DbUpdateConcurrencyException)
+            catch (DbUpdateException ex)
             {
-                if (!_context.Recipes.Any(r => r.RecipeId == id))
-                {
-                    return NotFound(new { message = "Recipe not found." });
-                }
-
-                throw;
+                return StatusCode(500, new { message = "An error occurred while updating the recipe.", details = ex.Message });
             }
 
             return NoContent();
         }
 
-        // DELETE: api/Recipes/{id}
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteRecipe(int id)
         {

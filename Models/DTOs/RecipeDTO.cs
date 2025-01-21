@@ -10,6 +10,6 @@ public class RecipeDTO
     public string Difficulty { get; set; }
     public int AuthorId { get; set; }
     public DateTime CreatedDate { get; set; }
-    public List<RecipeStepDTO> RecipeSteps { get; set; }
-    public List<RecipeIngredientDTO> RecipeIngredients { get; set; }
+    public List<RecipeStepDTO> Steps { get; set; }
+    public List<RecipeIngredientDTO> Ingredients { get; set; }
 }

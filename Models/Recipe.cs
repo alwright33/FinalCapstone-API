@@ -5,6 +5,7 @@ namespace Cookistry.Models
 {
     public class Recipe
     {
+        [Key]
         public int RecipeId { get; set; }
 
         [Required]
