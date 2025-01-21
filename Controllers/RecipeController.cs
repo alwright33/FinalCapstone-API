@@ -57,39 +57,25 @@ namespace Cookistry.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateRecipe([FromBody] CreateRecipeDTO recipeDto, [FromHeader(Name = "Authorization")] string token)
+        public async Task<IActionResult> CreateRecipe([FromBody] CreateRecipeDTO recipeDto, [FromQuery] int userId)
         {
             try
             {
-                if (string.IsNullOrEmpty(token))
-                {
-                    Console.WriteLine("No token provided.");
-                    return Unauthorized(new { message = "Missing token." });
-                }
-
-                token = token.Replace("Bearer ", "").Trim();
-                Console.WriteLine($"Processed Token: {token}");
-
-                var user = await _context.Users.FirstOrDefaultAsync(u => u.Token == token);
+                // Check if user exists
+                var user = await _context.Users.FindAsync(userId);
                 if (user == null)
                 {
-                    Console.WriteLine("Invalid token or user not found.");
-                    return Unauthorized(new { message = "Invalid or missing token." });
+                    return Unauthorized(new { message = "Invalid user." });
                 }
-
-                Console.WriteLine($"User authenticated: {user.UserId}");
 
                 if (!ModelState.IsValid)
                 {
-                    Console.WriteLine("Model validation failed.");
-                    foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+                    return BadRequest(new
                     {
-                        Console.WriteLine($"Validation Error: {error.ErrorMessage}");
-                    }
-                    return BadRequest(ModelState);
+                        message = "Validation failed.",
+                        errors = ModelState.Values.SelectMany(v => v.Errors.Select(e => e.ErrorMessage))
+                    });
                 }
-
-                using var transaction = await _context.Database.BeginTransactionAsync();
 
                 var recipe = new Recipe
                 {
@@ -98,46 +84,19 @@ namespace Cookistry.Controllers
                     CookTime = recipeDto.CookTime,
                     PrepTime = recipeDto.PrepTime,
                     Difficulty = recipeDto.Difficulty,
-                    AuthorId = user.UserId,
+                    AuthorId = userId, // Use UserId from query
                     CreatedDate = DateTime.UtcNow
                 };
 
                 _context.Recipes.Add(recipe);
                 await _context.SaveChangesAsync();
 
-                Console.WriteLine($"Recipe created with ID: {recipe.RecipeId}");
-
-                foreach (var ingredient in recipeDto.Ingredients)
-                {
-                    _context.RecipeIngredients.Add(new RecipeIngredient
-                    {
-                        RecipeId = recipe.RecipeId,
-                        IngredientId = ingredient.IngredientId,
-                        Quantity = ingredient.Quantity,
-                        Unit = ingredient.Unit,
-                        PrepDetails = ingredient.PrepDetails
-                    });
-                }
-
-                foreach (var step in recipeDto.Steps)
-                {
-                    _context.RecipeSteps.Add(new RecipeStep
-                    {
-                        RecipeId = recipe.RecipeId,
-                        StepNumber = step.StepNumber,
-                        StepInstruction = step.StepInstruction
-                    });
-                }
-
-                await _context.SaveChangesAsync();
-                await transaction.CommitAsync();
-
                 return CreatedAtAction(nameof(GetRecipe), new { id = recipe.RecipeId }, recipe);
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error: {ex.Message}");
-                return StatusCode(500, new { message = "An error occurred while creating the recipe.", details = ex.Message });
+                return StatusCode(500, new { message = "Internal server error", details = ex.Message });
             }
         }
 
