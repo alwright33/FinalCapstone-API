@@ -84,7 +84,7 @@ namespace Cookistry.Controllers
                     CookTime = recipeDto.CookTime,
                     PrepTime = recipeDto.PrepTime,
                     Difficulty = recipeDto.Difficulty,
-                    AuthorId = userId, // Use UserId from query
+                    AuthorId = userId,
                     CreatedDate = DateTime.UtcNow
                 };
 
@@ -99,6 +99,7 @@ namespace Cookistry.Controllers
                 return StatusCode(500, new { message = "Internal server error", details = ex.Message });
             }
         }
+
 
 
         // PUT: api/Recipes/{id}
