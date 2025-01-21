@@ -27,12 +27,6 @@ namespace Cookistry.Controllers
             return Convert.ToBase64String(sha256.ComputeHash(Encoding.UTF8.GetBytes(password)));
         }
 
-        // Helper Method: Generate Simple Token
-        private string GenerateSimpleToken()
-        {
-            return Guid.NewGuid().ToString();
-        }
-
         [HttpPost("login")]
         public async Task<ActionResult> Login([FromBody] LoginDTO loginDTO)
         {
@@ -47,13 +41,9 @@ namespace Cookistry.Controllers
             {
                 return Unauthorized(new { message = "Invalid email or password." });
             }
-
-            // Generate a simple token and save it to the user
-            var token = GenerateSimpleToken();
-            user.Token = token;
             await _context.SaveChangesAsync();
 
-            return Ok(new { message = "Login successful.", userId = user.UserId, token });
+            return Ok();
         }
 
         [HttpPost("register")]
@@ -84,18 +74,6 @@ namespace Cookistry.Controllers
             await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(Register), new { id = user.UserId }, new { message = "Registration successful.", userId = user.UserId });
-        }
-
-        [HttpGet("protected-endpoint")]
-        public async Task<IActionResult> ProtectedEndpoint([FromHeader(Name = "Authorization")] string token)
-        {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Token == token);
-            if (user == null)
-            {
-                return Unauthorized(new { message = "Invalid or missing token." });
-            }
-
-            return Ok(new { message = "You are authorized.", userId = user.UserId });
         }
     }
 }

@@ -22,7 +22,7 @@ public class CookistryDbContext : DbContext
     {
 
         modelBuilder.Entity<SavedRecipe>()
-    .HasKey(sr => new { sr.UserId, sr.RecipeId });
+             .HasKey(sr => new { sr.UserId, sr.RecipeId });
 
         modelBuilder.Entity<SavedRecipe>()
             .HasOne(sr => sr.Recipe)
@@ -39,20 +39,15 @@ public class CookistryDbContext : DbContext
             .HasKey(ri => new { ri.RecipeId, ri.IngredientId });
 
         modelBuilder.Entity<RecipeIngredient>()
-            .HasOne(ri => ri.Recipe)
-            .WithMany(r => r.RecipeIngredients)
-            .HasForeignKey(ri => ri.RecipeId);
-
-        modelBuilder.Entity<RecipeIngredient>()
             .HasOne(ri => ri.Ingredient)
             .WithMany()
             .HasForeignKey(ri => ri.IngredientId);
 
         modelBuilder.Entity<RecipeStep>()
-       .HasKey(rs => rs.StepId);
+            .HasKey(rs => rs.StepId);
 
         modelBuilder.Entity<RecipeStep>()
-            .HasOne(rs => rs.Recipe)
+            .HasOne<Recipe>()
             .WithMany(r => r.RecipeSteps)
             .HasForeignKey(rs => rs.RecipeId);
 

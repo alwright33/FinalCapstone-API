@@ -13,10 +13,10 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowReactApp",
         policy =>
         {
-            policy.WithOrigins("http://localhost:5173") // Frontend origin
+            policy.WithOrigins("http://localhost:5173")
                   .AllowAnyHeader()
                   .AllowAnyMethod()
-                  .AllowCredentials(); // If cookies or authentication headers are needed
+                  .AllowCredentials();
         });
 });
 
@@ -26,7 +26,7 @@ var app = builder.Build();
 
 app.UseCors("AllowReactApp");
 
-// Configure the HTTP request pipeline.
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

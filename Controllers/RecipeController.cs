@@ -46,28 +46,57 @@ namespace Cookistry.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<RecipeDTO>> GetRecipe(int id)
         {
-            var recipe = await _context.Recipes.FindAsync(id);
+            var recipe = await _context.Recipes
+                .Include(r => r.RecipeIngredients)
+                    .ThenInclude(ri => ri.Ingredient)
+                .Include(r => r.RecipeSteps)
+                .FirstOrDefaultAsync(r => r.RecipeId == id);
 
             if (recipe == null)
             {
                 return NotFound(new { message = "Recipe not found." });
             }
 
-            return Ok(MapToRecipeDTO(recipe));
+            var recipeDTO = new RecipeDTO
+            {
+                RecipeId = recipe.RecipeId,
+                Name = recipe.Name,
+                Description = recipe.Description,
+                CookTime = recipe.CookTime,
+                PrepTime = recipe.PrepTime,
+                Difficulty = recipe.Difficulty,
+                RecipeIngredients = recipe.RecipeIngredients.Select(ri => new RecipeIngredientDTO
+                {
+                    IngredientId = ri.IngredientId,
+                    Name = ri.Ingredient.Name,
+                    Quantity = ri.Quantity,
+                    Unit = ri.Unit,
+                    PrepDetails = ri.PrepDetails
+                }).ToList(),
+                RecipeSteps = recipe.RecipeSteps.Select(rs => new RecipeStepDTO
+                {
+                    StepNumber = rs.StepNumber,
+                    StepInstruction = rs.StepInstruction
+                }).ToList()
+            };
+
+            return Ok(recipeDTO);
         }
 
+        // POST: api/Recipes/
         [HttpPost]
         public async Task<IActionResult> CreateRecipe([FromBody] CreateRecipeDTO recipeDto, [FromQuery] int userId)
         {
             try
             {
-                // Check if user exists
+                // Validate user
                 var user = await _context.Users.FindAsync(userId);
                 if (user == null)
                 {
                     return Unauthorized(new { message = "Invalid user." });
                 }
 
+                // Validate model state
                 if (!ModelState.IsValid)
                 {
                     return BadRequest(new
@@ -77,6 +106,7 @@ namespace Cookistry.Controllers
                     });
                 }
 
+                // Map recipe data
                 var recipe = new Recipe
                 {
                     Name = recipeDto.Name,
@@ -85,20 +115,37 @@ namespace Cookistry.Controllers
                     PrepTime = recipeDto.PrepTime,
                     Difficulty = recipeDto.Difficulty,
                     AuthorId = userId,
-                    CreatedDate = DateTime.UtcNow
+                    CreatedDate = DateTime.UtcNow,
+                    RecipeIngredients = recipeDto.Ingredients.Select(i => new RecipeIngredient
+                    {
+                        IngredientId = i.IngredientId,
+                        Quantity = i.Quantity,
+                        Unit = i.Unit,
+                        PrepDetails = i.PrepDetails
+                    }).ToList(),
+                    RecipeSteps = recipeDto.Steps.Select(s => new RecipeStep
+                    {
+                        StepNumber = s.StepNumber,
+                        StepInstruction = s.StepInstruction
+                    }).ToList()
                 };
 
+                // Save to the database
                 _context.Recipes.Add(recipe);
                 await _context.SaveChangesAsync();
 
+                // Return the created recipe
                 return CreatedAtAction(nameof(GetRecipe), new { id = recipe.RecipeId }, recipe);
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error: {ex.Message}");
-                return StatusCode(500, new { message = "Internal server error", details = ex.Message });
+                // Log the error and return JSON response
+                Console.WriteLine($"Error Creating Recipe: {ex.Message}");
+                return StatusCode(500, new { message = "An error occurred while creating the recipe.", details = ex.Message });
             }
         }
+
+
 
 
 

@@ -10,6 +10,5 @@ public class RecipeIngredient
     public string? Unit { get; set; }
     public string? PrepDetails { get; set; }
 
-    public Recipe Recipe { get; set; }
     public Ingredient Ingredient { get; set; }
 }
