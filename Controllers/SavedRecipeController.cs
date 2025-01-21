@@ -41,12 +41,6 @@ namespace Cookistry.Controllers
                 })
                 .ToListAsync();
 
-            foreach (var recipe in savedRecipes)
-            {
-                Console.WriteLine($"RecipeId: {recipe.RecipeId}, Name: {recipe.Name}, Difficulty: {recipe.Difficulty}");
-            }
-
-            // Return the result
             return Ok(savedRecipes);
         }
 

@@ -32,25 +32,42 @@ namespace Cookistry.Controllers
         [HttpGet("recipe/{recipeId}")]
         public async Task<ActionResult<IEnumerable<RecipeIngredientDTO>>> GetIngredientsForRecipe(int recipeId)
         {
+
             var recipeIngredients = await _context.RecipeIngredients
                 .Where(ri => ri.RecipeId == recipeId)
-                .Select(ri => new RecipeIngredientDTO
-                {
-                    IngredientId = ri.IngredientId,
-                    Name = ri.Ingredient.Name, // Join with the Ingredient table
-                    Quantity = ri.Quantity,
-                    Unit = ri.Unit
-                })
+                .Include(ri => ri.Ingredient)
                 .ToListAsync();
 
-            if (!recipeIngredients.Any())
+
+            foreach (var ri in recipeIngredients)
             {
+                Console.WriteLine($"RecipeId: {ri.RecipeId}, IngredientId: {ri.IngredientId}, Quantity: {ri.Quantity}, Unit: {ri.Unit}");
+            }
+
+            var recipeIngredientDTOs = recipeIngredients
+                .Select(ri => new RecipeIngredientDTO
+                {
+                    RecipeId = ri.RecipeId,
+                    IngredientId = ri.IngredientId,
+                    Name = ri.Ingredient.Name,
+                    Quantity = ri.Quantity,
+                    Unit = ri.Unit,
+                    PrepDetails = ri.PrepDetails
+                })
+                .ToList();
+            foreach (var dto in recipeIngredientDTOs)
+            {
+                Console.WriteLine($"DTO - RecipeId: {dto.RecipeId}, IngredientId: {dto.IngredientId}, Name: {dto.Name}");
+            }
+
+            if (!recipeIngredientDTOs.Any())
+            {
+                Console.WriteLine($"No ingredients found for RecipeId: {recipeId}");
                 return NotFound(new { message = "No ingredients found for the specified recipe." });
             }
 
-            return Ok(recipeIngredients);
+            return Ok(recipeIngredientDTOs);
         }
-
 
         // POST: api/RecipeIngredients/recipe/{recipeId}
         [HttpPost("recipe/{recipeId}")]
