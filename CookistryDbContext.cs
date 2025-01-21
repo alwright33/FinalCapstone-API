@@ -22,7 +22,18 @@ public class CookistryDbContext : DbContext
     {
 
         modelBuilder.Entity<SavedRecipe>()
-            .HasKey(sr => new { sr.UserId, sr.RecipeId });
+    .HasKey(sr => new { sr.UserId, sr.RecipeId });
+
+        modelBuilder.Entity<SavedRecipe>()
+            .HasOne(sr => sr.Recipe)
+            .WithMany()
+            .HasForeignKey(sr => sr.RecipeId);
+
+        modelBuilder.Entity<SavedRecipe>()
+            .HasOne(sr => sr.User)
+            .WithMany()
+            .HasForeignKey(sr => sr.UserId);
+
 
         modelBuilder.Entity<RecipeIngredient>()
             .HasKey(ri => new { ri.RecipeId, ri.IngredientId });
@@ -37,6 +48,15 @@ public class CookistryDbContext : DbContext
             .WithMany()
             .HasForeignKey(ri => ri.IngredientId);
 
+        modelBuilder.Entity<RecipeStep>()
+       .HasKey(rs => rs.StepId);
+
+        modelBuilder.Entity<RecipeStep>()
+            .HasOne(rs => rs.Recipe)
+            .WithMany(r => r.RecipeSteps)
+            .HasForeignKey(rs => rs.RecipeId);
+
+        modelBuilder.Entity<User>().Property(u => u.Token).HasMaxLength(256).IsRequired(false);
 
         //Users
         modelBuilder.Entity<User>().HasData(new User[]
@@ -59,7 +79,7 @@ public class CookistryDbContext : DbContext
             FirstName = "Sue",
             LastName = "Smith",
             Email = "bakersue@example.com",
-            PasswordHash = "hashedpassword2",
+            PasswordHash = HashPassword("hashedpassword2"),
             AccountCreated = DateTime.Now.AddDays(-90)
         },
         new User
@@ -69,7 +89,7 @@ public class CookistryDbContext : DbContext
             FirstName = "James",
             LastName = "Brown",
             Email = "grillmaster@example.com",
-            PasswordHash = "hashedpassword3",
+            PasswordHash = HashPassword("hashedpassword3"),
             AccountCreated = DateTime.Now.AddDays(-80)
         },
         new User
@@ -79,7 +99,7 @@ public class CookistryDbContext : DbContext
             FirstName = "Emily",
             LastName = "Clark",
             Email = "veggiequeen@example.com",
-            PasswordHash = "hashedpassword4",
+            PasswordHash = HashPassword("hashedpassword4"),
             AccountCreated = DateTime.Now.AddDays(-70)
         },
         new User
@@ -89,7 +109,7 @@ public class CookistryDbContext : DbContext
             FirstName = "Oliver",
             LastName = "Martinez",
             Email = "quickcook@example.com",
-            PasswordHash = "hashedpassword5",
+            PasswordHash = HashPassword("hashedpassword5"),
             AccountCreated = DateTime.Now.AddDays(-60)
         },
         new User
@@ -99,7 +119,7 @@ public class CookistryDbContext : DbContext
             FirstName = "Sophia",
             LastName = "Johnson",
             Email = "dessertlover@example.com",
-            PasswordHash = "hashedpassword6",
+            PasswordHash = HashPassword("hashedpassword6"),
             AccountCreated = DateTime.Now.AddDays(-50)
         },
         new User
@@ -109,7 +129,7 @@ public class CookistryDbContext : DbContext
             FirstName = "William",
             LastName = "Garcia",
             Email = "homechef@example.com",
-            PasswordHash = "hashedpassword7",
+            PasswordHash = HashPassword("hashedpassword7"),
             AccountCreated = DateTime.Now.AddDays(-40)
         },
         new User
@@ -119,7 +139,7 @@ public class CookistryDbContext : DbContext
             FirstName = "Ava",
             LastName = "Hernandez",
             Email = "healthyeats@example.com",
-            PasswordHash = "hashedpassword8",
+            PasswordHash = HashPassword("hashedpassword8"),
             AccountCreated = DateTime.Now.AddDays(-30)
         },
         new User
@@ -129,7 +149,7 @@ public class CookistryDbContext : DbContext
             FirstName = "Ethan",
             LastName = "Lopez",
             Email = "spicyfan@example.com",
-            PasswordHash = "hashedpassword9",
+            PasswordHash = HashPassword("hashedpassword9"),
             AccountCreated = DateTime.Now.AddDays(-20)
         },
         new User
@@ -139,7 +159,7 @@ public class CookistryDbContext : DbContext
             FirstName = "Isabella",
             LastName = "Gonzalez",
             Email = "foodexplorer@example.com",
-            PasswordHash = "hashedpassword10",
+            PasswordHash = HashPassword("hashedpassword1"),
             AccountCreated = DateTime.Now.AddDays(-10)
         }
         });
@@ -687,7 +707,6 @@ public class CookistryDbContext : DbContext
             new RecipeStep { StepId = 118, RecipeId = 15, StepNumber = 10, StepInstruction = "Serve the lobster bisque hot, garnished with fresh parsley or chives if desired." }
 
 );
-
 
     }
     private static string HashPassword(string password)

@@ -27,20 +27,29 @@ namespace Cookistry.Controllers
 
         // GET: api/SavedRecipes/user/{userId}
         [HttpGet("user/{userId}")]
-        public async Task<ActionResult<IEnumerable<SavedRecipeDTO>>> GetSavedRecipesForUser(int userId)
+        public async Task<ActionResult<IEnumerable<SavedRecipeDTO>>> GetSavedRecipes(int userId)
         {
             var savedRecipes = await _context.SavedRecipes
+                .Include(sr => sr.Recipe)
                 .Where(sr => sr.UserId == userId)
-                .Select(sr => MapToSavedRecipeDTO(sr))
+                .Select(sr => new SavedRecipeDTO
+                {
+                    RecipeId = sr.RecipeId,
+                    Name = sr.Recipe.Name,
+                    Difficulty = sr.Recipe.Difficulty,
+                    UserId = sr.UserId
+                })
                 .ToListAsync();
 
-            if (!savedRecipes.Any())
+            foreach (var recipe in savedRecipes)
             {
-                return NotFound(new { message = "No saved recipes found for the user." });
+                Console.WriteLine($"RecipeId: {recipe.RecipeId}, Name: {recipe.Name}, Difficulty: {recipe.Difficulty}");
             }
 
+            // Return the result
             return Ok(savedRecipes);
         }
+
 
         // POST: api/SavedRecipes/user/{userId}
         [HttpPost("user/{userId}")]
@@ -79,7 +88,7 @@ namespace Cookistry.Controllers
                 return StatusCode(500, new { message = "An error occurred while saving the recipe.", details = ex.Message });
             }
 
-            return CreatedAtAction(nameof(GetSavedRecipesForUser), new { userId }, MapToSavedRecipeDTO(savedRecipe));
+            return CreatedAtAction(nameof(GetSavedRecipes), new { userId }, MapToSavedRecipeDTO(savedRecipe));
         }
 
         // DELETE: api/SavedRecipes/user/{userId}/recipe/{recipeId}

@@ -56,38 +56,51 @@ namespace Cookistry.Controllers
             return Ok(MapToRecipeDTO(recipe));
         }
 
-        // POST: api/Recipes
         [HttpPost]
-        public async Task<ActionResult<RecipeDTO>> CreateRecipe([FromBody] CreateRecipeDTO createRecipeDTO)
+        public async Task<IActionResult> CreateRecipe([FromBody] CreateRecipeDTO recipeDto, [FromQuery] int userId)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var recipe = new Recipe
-            {
-                Name = createRecipeDTO.Name,
-                Description = createRecipeDTO.Description,
-                CookTime = createRecipeDTO.CookTime,
-                PrepTime = createRecipeDTO.PrepTime,
-                Difficulty = createRecipeDTO.Difficulty,
-                AuthorId = createRecipeDTO.AuthorId,
-                CreatedDate = DateTime.UtcNow
-            };
-
-            _context.Recipes.Add(recipe);
             try
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException ex)
-            {
-                return StatusCode(500, new { message = "An error occurred while creating the recipe.", details = ex.Message });
-            }
+                // Check if user exists
+                var user = await _context.Users.FindAsync(userId);
+                if (user == null)
+                {
+                    return Unauthorized(new { message = "Invalid user." });
+                }
 
-            return CreatedAtAction(nameof(GetRecipe), new { id = recipe.RecipeId }, MapToRecipeDTO(recipe));
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(new
+                    {
+                        message = "Validation failed.",
+                        errors = ModelState.Values.SelectMany(v => v.Errors.Select(e => e.ErrorMessage))
+                    });
+                }
+
+                var recipe = new Recipe
+                {
+                    Name = recipeDto.Name,
+                    Description = recipeDto.Description,
+                    CookTime = recipeDto.CookTime,
+                    PrepTime = recipeDto.PrepTime,
+                    Difficulty = recipeDto.Difficulty,
+                    AuthorId = userId,
+                    CreatedDate = DateTime.UtcNow
+                };
+
+                _context.Recipes.Add(recipe);
+                await _context.SaveChangesAsync();
+
+                return CreatedAtAction(nameof(GetRecipe), new { id = recipe.RecipeId }, recipe);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+                return StatusCode(500, new { message = "Internal server error", details = ex.Message });
+            }
         }
+
+
 
         // PUT: api/Recipes/{id}
         [HttpPut("{id}")]
