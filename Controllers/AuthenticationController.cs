@@ -36,7 +36,7 @@ namespace Cookistry.Controllers
                 return Unauthorized(new { message = "Invalid email or password." });
             }
 
-            return Ok(new { userId = user.UserId }); // Ensure userId is included in the response
+            return Ok(new { userId = user.UserId });
         }
 
         [HttpPost("register")]

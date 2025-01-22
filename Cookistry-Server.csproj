@@ -6,6 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>Cookistry_Server</RootNamespace>
     <UserSecretsId>e4aa3a21-5f21-4f49-bba7-5a7bf58d6c87</UserSecretsId>
+    <NoWarn>CS8601;CS8602;CS8618;CS8604;CS8620</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>

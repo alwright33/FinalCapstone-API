@@ -70,6 +70,7 @@ namespace Cookistry.Controllers
 
             var step = new RecipeStep
             {
+                RecipeId = createStepDTO.RecipeId,
                 StepNumber = createStepDTO.StepNumber,
                 StepInstruction = createStepDTO.StepInstruction
             };

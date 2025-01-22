@@ -51,7 +51,6 @@ public class CookistryDbContext : DbContext
             .WithMany(r => r.RecipeSteps)
             .HasForeignKey(rs => rs.RecipeId);
 
-        modelBuilder.Entity<User>().Property(u => u.Token).HasMaxLength(256).IsRequired(false);
 
         //Users
         modelBuilder.Entity<User>().HasData(new User[]

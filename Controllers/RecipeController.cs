@@ -30,7 +30,7 @@ namespace Cookistry.Controllers
                 CreatedDate = recipe.CreatedDate
             };
         }
-
+        // GET: api/Recipes
         [HttpGet]
         public async Task<ActionResult<IEnumerable<RecipeDTO>>> GetRecipes()
         {
@@ -50,6 +50,7 @@ namespace Cookistry.Controllers
             return Ok(recipes);
         }
 
+        // GET: api/Recipes/{id}
         [HttpGet("{id}")]
         public async Task<ActionResult<RecipeDTO>> GetRecipe(int id)
         {
@@ -93,6 +94,7 @@ namespace Cookistry.Controllers
 
             return Ok(recipeDTO);
         }
+
 
         [HttpPost]
         public async Task<IActionResult> CreateRecipe([FromBody] CreateRecipeDTO recipeDto, [FromQuery] int userId)

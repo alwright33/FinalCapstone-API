@@ -6,15 +6,14 @@ public class User
 {
     public int UserId { get; set; }
     [Required]
-    public string Username { get; set; }
+    public required string Username { get; set; }
     [Required]
-    public string FirstName { get; set; }
+    public required string FirstName { get; set; }
     [Required]
-    public string LastName { get; set; }
+    public required string LastName { get; set; }
     [Required]
-    public string Email { get; set; }
+    public required string Email { get; set; }
     [Required]
-    public string PasswordHash { get; set; }
+    public required string PasswordHash { get; set; }
     public DateTime AccountCreated { get; set; }
-    public string? Token { get; set; }
 }

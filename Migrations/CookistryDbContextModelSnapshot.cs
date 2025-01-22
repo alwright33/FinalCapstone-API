@@ -517,7 +517,7 @@ namespace Cookistry_Server.Migrations
                             RecipeId = 1,
                             AuthorId = 1,
                             CookTime = 5,
-                            CreatedDate = new DateTime(2025, 1, 21, 17, 15, 39, 897, DateTimeKind.Local).AddTicks(9209),
+                            CreatedDate = new DateTime(2025, 1, 22, 9, 46, 24, 484, DateTimeKind.Local).AddTicks(3166),
                             Description = "Quick and easy scrambled eggs for breakfast.",
                             Difficulty = "Beginner",
                             Name = "Simple Scrambled Eggs",
@@ -528,7 +528,7 @@ namespace Cookistry_Server.Migrations
                             RecipeId = 2,
                             AuthorId = 2,
                             CookTime = 10,
-                            CreatedDate = new DateTime(2025, 1, 21, 17, 15, 39, 897, DateTimeKind.Local).AddTicks(9212),
+                            CreatedDate = new DateTime(2025, 1, 22, 9, 46, 24, 484, DateTimeKind.Local).AddTicks(3169),
                             Description = "A golden, cheesy sandwich.",
                             Difficulty = "Beginner",
                             Name = "Classic Grilled Cheese",
@@ -539,7 +539,7 @@ namespace Cookistry_Server.Migrations
                             RecipeId = 3,
                             AuthorId = 3,
                             CookTime = 20,
-                            CreatedDate = new DateTime(2025, 1, 21, 17, 15, 39, 897, DateTimeKind.Local).AddTicks(9214),
+                            CreatedDate = new DateTime(2025, 1, 22, 9, 46, 24, 484, DateTimeKind.Local).AddTicks(3171),
                             Description = "A simple pasta dish with a rich tomato sauce.",
                             Difficulty = "Beginner",
                             Name = "Pasta with Tomato Sauce",
@@ -550,7 +550,7 @@ namespace Cookistry_Server.Migrations
                             RecipeId = 4,
                             AuthorId = 4,
                             CookTime = 30,
-                            CreatedDate = new DateTime(2025, 1, 21, 17, 15, 39, 897, DateTimeKind.Local).AddTicks(9216),
+                            CreatedDate = new DateTime(2025, 1, 22, 9, 46, 24, 484, DateTimeKind.Local).AddTicks(3173),
                             Description = "Crispy potatoes baked to perfection.",
                             Difficulty = "Beginner",
                             Name = "Oven-Baked Potatoes",
@@ -561,7 +561,7 @@ namespace Cookistry_Server.Migrations
                             RecipeId = 5,
                             AuthorId = 5,
                             CookTime = 5,
-                            CreatedDate = new DateTime(2025, 1, 21, 17, 15, 39, 897, DateTimeKind.Local).AddTicks(9218),
+                            CreatedDate = new DateTime(2025, 1, 22, 9, 46, 24, 484, DateTimeKind.Local).AddTicks(3175),
                             Description = "A refreshing mix of seasonal fruits.",
                             Difficulty = "Beginner",
                             Name = "Fruit Salad",
@@ -572,7 +572,7 @@ namespace Cookistry_Server.Migrations
                             RecipeId = 6,
                             AuthorId = 6,
                             CookTime = 20,
-                            CreatedDate = new DateTime(2025, 1, 21, 17, 15, 39, 897, DateTimeKind.Local).AddTicks(9220),
+                            CreatedDate = new DateTime(2025, 1, 22, 9, 46, 24, 484, DateTimeKind.Local).AddTicks(3177),
                             Description = "A flavorful stir-fry with tender chicken and crisp vegetables.",
                             Difficulty = "Intermediate",
                             Name = "Chicken Stir-Fry",
@@ -583,7 +583,7 @@ namespace Cookistry_Server.Migrations
                             RecipeId = 7,
                             AuthorId = 7,
                             CookTime = 40,
-                            CreatedDate = new DateTime(2025, 1, 21, 17, 15, 39, 897, DateTimeKind.Local).AddTicks(9222),
+                            CreatedDate = new DateTime(2025, 1, 22, 9, 46, 24, 484, DateTimeKind.Local).AddTicks(3178),
                             Description = "A creamy and delicious beef stroganoff.",
                             Difficulty = "Intermediate",
                             Name = "Beef Stroganoff",
@@ -594,7 +594,7 @@ namespace Cookistry_Server.Migrations
                             RecipeId = 8,
                             AuthorId = 8,
                             CookTime = 25,
-                            CreatedDate = new DateTime(2025, 1, 21, 17, 15, 39, 897, DateTimeKind.Local).AddTicks(9224),
+                            CreatedDate = new DateTime(2025, 1, 22, 9, 46, 24, 484, DateTimeKind.Local).AddTicks(3180),
                             Description = "A customizable homemade pizza with your favorite toppings.",
                             Difficulty = "Intermediate",
                             Name = "Homemade Pizza",
@@ -605,7 +605,7 @@ namespace Cookistry_Server.Migrations
                             RecipeId = 9,
                             AuthorId = 9,
                             CookTime = 15,
-                            CreatedDate = new DateTime(2025, 1, 21, 17, 15, 39, 897, DateTimeKind.Local).AddTicks(9225),
+                            CreatedDate = new DateTime(2025, 1, 22, 9, 46, 24, 484, DateTimeKind.Local).AddTicks(3184),
                             Description = "Delicious shrimp tacos with a zesty lime crema.",
                             Difficulty = "Intermediate",
                             Name = "Shrimp Tacos",
@@ -616,7 +616,7 @@ namespace Cookistry_Server.Migrations
                             RecipeId = 10,
                             AuthorId = 10,
                             CookTime = 45,
-                            CreatedDate = new DateTime(2025, 1, 21, 17, 15, 39, 897, DateTimeKind.Local).AddTicks(9228),
+                            CreatedDate = new DateTime(2025, 1, 22, 9, 46, 24, 484, DateTimeKind.Local).AddTicks(3186),
                             Description = "Bell peppers stuffed with a savory mixture of rice, meat, and vegetables.",
                             Difficulty = "Intermediate",
                             Name = "Stuffed Bell Peppers",
@@ -627,7 +627,7 @@ namespace Cookistry_Server.Migrations
                             RecipeId = 11,
                             AuthorId = 1,
                             CookTime = 90,
-                            CreatedDate = new DateTime(2025, 1, 21, 17, 15, 39, 897, DateTimeKind.Local).AddTicks(9230),
+                            CreatedDate = new DateTime(2025, 1, 22, 9, 46, 24, 484, DateTimeKind.Local).AddTicks(3188),
                             Description = "A luxurious dish featuring beef tenderloin wrapped in puff pastry.",
                             Difficulty = "Advanced",
                             Name = "Beef Wellington",
@@ -638,7 +638,7 @@ namespace Cookistry_Server.Migrations
                             RecipeId = 12,
                             AuthorId = 2,
                             CookTime = 60,
-                            CreatedDate = new DateTime(2025, 1, 21, 17, 15, 39, 897, DateTimeKind.Local).AddTicks(9232),
+                            CreatedDate = new DateTime(2025, 1, 22, 9, 46, 24, 484, DateTimeKind.Local).AddTicks(3190),
                             Description = "A beautifully layered vegetable dish inspired by French cuisine.",
                             Difficulty = "Advanced",
                             Name = "Ratatouille",
@@ -649,7 +649,7 @@ namespace Cookistry_Server.Migrations
                             RecipeId = 13,
                             AuthorId = 3,
                             CookTime = 20,
-                            CreatedDate = new DateTime(2025, 1, 21, 17, 15, 39, 897, DateTimeKind.Local).AddTicks(9234),
+                            CreatedDate = new DateTime(2025, 1, 22, 9, 46, 24, 484, DateTimeKind.Local).AddTicks(3191),
                             Description = "Flaky, buttery croissants made from scratch.",
                             Difficulty = "Advanced",
                             Name = "Croissants",
@@ -660,7 +660,7 @@ namespace Cookistry_Server.Migrations
                             RecipeId = 14,
                             AuthorId = 4,
                             CookTime = 120,
-                            CreatedDate = new DateTime(2025, 1, 21, 17, 15, 39, 897, DateTimeKind.Local).AddTicks(9237),
+                            CreatedDate = new DateTime(2025, 1, 22, 9, 46, 24, 484, DateTimeKind.Local).AddTicks(3193),
                             Description = "A classic French dish featuring duck with a sweet orange glaze.",
                             Difficulty = "Advanced",
                             Name = "Duck à l'Orange",
@@ -671,7 +671,7 @@ namespace Cookistry_Server.Migrations
                             RecipeId = 15,
                             AuthorId = 5,
                             CookTime = 50,
-                            CreatedDate = new DateTime(2025, 1, 21, 17, 15, 39, 897, DateTimeKind.Local).AddTicks(9239),
+                            CreatedDate = new DateTime(2025, 1, 22, 9, 46, 24, 484, DateTimeKind.Local).AddTicks(3195),
                             Description = "A rich and creamy lobster soup.",
                             Difficulty = "Advanced",
                             Name = "Lobster Bisque",
@@ -2464,10 +2464,6 @@ namespace Cookistry_Server.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Token")
-                        .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
-
                     b.Property<string>("Username")
                         .IsRequired()
                         .HasColumnType("text");
@@ -2480,7 +2476,7 @@ namespace Cookistry_Server.Migrations
                         new
                         {
                             UserId = 1,
-                            AccountCreated = new DateTime(2024, 10, 13, 17, 15, 39, 897, DateTimeKind.Local).AddTicks(8874),
+                            AccountCreated = new DateTime(2024, 10, 14, 9, 46, 24, 484, DateTimeKind.Local).AddTicks(2754),
                             Email = "awright@code.com",
                             FirstName = "Austin",
                             LastName = "Wright",
@@ -2490,7 +2486,7 @@ namespace Cookistry_Server.Migrations
                         new
                         {
                             UserId = 2,
-                            AccountCreated = new DateTime(2024, 10, 23, 17, 15, 39, 897, DateTimeKind.Local).AddTicks(8925),
+                            AccountCreated = new DateTime(2024, 10, 24, 9, 46, 24, 484, DateTimeKind.Local).AddTicks(2815),
                             Email = "bakersue@example.com",
                             FirstName = "Sue",
                             LastName = "Smith",
@@ -2500,7 +2496,7 @@ namespace Cookistry_Server.Migrations
                         new
                         {
                             UserId = 3,
-                            AccountCreated = new DateTime(2024, 11, 2, 17, 15, 39, 897, DateTimeKind.Local).AddTicks(8934),
+                            AccountCreated = new DateTime(2024, 11, 3, 9, 46, 24, 484, DateTimeKind.Local).AddTicks(2825),
                             Email = "grillmaster@example.com",
                             FirstName = "James",
                             LastName = "Brown",
@@ -2510,7 +2506,7 @@ namespace Cookistry_Server.Migrations
                         new
                         {
                             UserId = 4,
-                            AccountCreated = new DateTime(2024, 11, 12, 17, 15, 39, 897, DateTimeKind.Local).AddTicks(8941),
+                            AccountCreated = new DateTime(2024, 11, 13, 9, 46, 24, 484, DateTimeKind.Local).AddTicks(2835),
                             Email = "veggiequeen@example.com",
                             FirstName = "Emily",
                             LastName = "Clark",
@@ -2520,7 +2516,7 @@ namespace Cookistry_Server.Migrations
                         new
                         {
                             UserId = 5,
-                            AccountCreated = new DateTime(2024, 11, 22, 17, 15, 39, 897, DateTimeKind.Local).AddTicks(8950),
+                            AccountCreated = new DateTime(2024, 11, 23, 9, 46, 24, 484, DateTimeKind.Local).AddTicks(2846),
                             Email = "quickcook@example.com",
                             FirstName = "Oliver",
                             LastName = "Martinez",
@@ -2530,7 +2526,7 @@ namespace Cookistry_Server.Migrations
                         new
                         {
                             UserId = 6,
-                            AccountCreated = new DateTime(2024, 12, 2, 17, 15, 39, 897, DateTimeKind.Local).AddTicks(8959),
+                            AccountCreated = new DateTime(2024, 12, 3, 9, 46, 24, 484, DateTimeKind.Local).AddTicks(2859),
                             Email = "dessertlover@example.com",
                             FirstName = "Sophia",
                             LastName = "Johnson",
@@ -2540,7 +2536,7 @@ namespace Cookistry_Server.Migrations
                         new
                         {
                             UserId = 7,
-                            AccountCreated = new DateTime(2024, 12, 12, 17, 15, 39, 897, DateTimeKind.Local).AddTicks(8966),
+                            AccountCreated = new DateTime(2024, 12, 13, 9, 46, 24, 484, DateTimeKind.Local).AddTicks(2866),
                             Email = "homechef@example.com",
                             FirstName = "William",
                             LastName = "Garcia",
@@ -2550,7 +2546,7 @@ namespace Cookistry_Server.Migrations
                         new
                         {
                             UserId = 8,
-                            AccountCreated = new DateTime(2024, 12, 22, 17, 15, 39, 897, DateTimeKind.Local).AddTicks(8974),
+                            AccountCreated = new DateTime(2024, 12, 23, 9, 46, 24, 484, DateTimeKind.Local).AddTicks(2874),
                             Email = "healthyeats@example.com",
                             FirstName = "Ava",
                             LastName = "Hernandez",
@@ -2560,7 +2556,7 @@ namespace Cookistry_Server.Migrations
                         new
                         {
                             UserId = 9,
-                            AccountCreated = new DateTime(2025, 1, 1, 17, 15, 39, 897, DateTimeKind.Local).AddTicks(8981),
+                            AccountCreated = new DateTime(2025, 1, 2, 9, 46, 24, 484, DateTimeKind.Local).AddTicks(2881),
                             Email = "spicyfan@example.com",
                             FirstName = "Ethan",
                             LastName = "Lopez",
@@ -2570,7 +2566,7 @@ namespace Cookistry_Server.Migrations
                         new
                         {
                             UserId = 10,
-                            AccountCreated = new DateTime(2025, 1, 11, 17, 15, 39, 897, DateTimeKind.Local).AddTicks(9019),
+                            AccountCreated = new DateTime(2025, 1, 12, 9, 46, 24, 484, DateTimeKind.Local).AddTicks(2888),
                             Email = "foodexplorer@example.com",
                             FirstName = "Isabella",
                             LastName = "Gonzalez",
