@@ -28,22 +28,15 @@ namespace Cookistry.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult> Login([FromBody] LoginDTO loginDTO)
+        public IActionResult Login([FromBody] LoginDTO loginDTO)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email.ToLower() == loginDTO.Email.ToLower());
-
-            if (user == null || user.PasswordHash != HashPassword(loginDTO.Password))
+            var user = _context.Users.FirstOrDefault(u => u.Email == loginDTO.Email && u.PasswordHash == HashPassword(loginDTO.Password));
+            if (user == null)
             {
                 return Unauthorized(new { message = "Invalid email or password." });
             }
-            await _context.SaveChangesAsync();
 
-            return Ok();
+            return Ok(new { userId = user.UserId }); // Ensure userId is included in the response
         }
 
         [HttpPost("register")]
